@@ -33,9 +33,12 @@ class Pila {
     }
 
     public Nodo peek() {
+        if (isEmpty()) {
+            throw new RuntimeException("No puedo hacer peek, la pila está vacía");
+        }
         return cima;
     }
-
+    //Quitamos el de arriba y movemos la 'cima' al de abajo
     public Nodo pop() {
         // si la pila esta vacia lanzara el if ya que el throw new crea una exception
         if (isEmpty()) {
@@ -49,17 +52,17 @@ class Pila {
 }
 
 public class verificador {
-
+    // Solo devuelve 'true' si el símbolo de apertura coincide con el de cierre
     public static boolean Pareja(String open, String close) {
-        // Caso 1: Paréntesis
+        //Parentesis
         if (open.equals("(") && close.equals(")")) {
             return true;
         }
-        // Caso 2: Corchetes
+        //Corchetes
         if (open.equals("[") && close.equals("]")) {
             return true;
         }
-        // Caso 3: Llaves
+        //Llaves
         if (open.equals("{") && close.equals("}")) {
             return true;
         }
@@ -71,7 +74,7 @@ public class verificador {
     public static void main(String[] args) {
         String codigo = "([])";
 
-        Pila miPila = new Pila();
+        Pila miPila = new Pila();// Creamos la pila para ir guardando las aperturas
 
         for (int i = 0; i < codigo.length(); i++) {
             // esta linea ayuda al verificador a guardar el caracter y el char sirve
@@ -96,6 +99,7 @@ public class verificador {
                     System.out.println("error se encontro este simbolo " + simbolo + "pero no se a abierto");
                     return;// y se detiene porque ya encontro un error
                 }
+
                 // si la pila no esta vacia sacara el de arriba para comparar
                 Nodo ultimo = miPila.pop();
                 // aqui lo que hacemos es comparar si el simbolo con el que se abre es igual con
